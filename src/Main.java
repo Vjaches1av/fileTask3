@@ -42,18 +42,15 @@ public class Main {
         try (final Scanner scanner = new Scanner((System.in))) {
             System.out.print("Укажите путь к архиву [*.zip]: ");
             final File pathZip = new File(scanner.nextLine());
-
             if (pathZip.exists() && pathZip.isFile() && pathZip.getName().endsWith(".zip")) {
                 System.out.print("Укажите путь для разархивирования " + pathZip.getName() + ": ");
                 final File pathFiles = new File(scanner.nextLine());
-
                 if ((pathFiles.exists() || pathFiles.mkdirs()) && pathFiles.isDirectory()) {
                     try {
                         openZip(pathZip, pathFiles);
-                        System.out.println();
-
                         File[] files = pathFiles.listFiles(((dir, name) -> name.endsWith(".dat")));
                         if (files != null && files.length != 0) {
+                            System.out.println();
                             for (File f : files) {
                                 try {
                                     System.out.println(openProgress(f));
